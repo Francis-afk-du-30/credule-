@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Questionnaire : Votre rapport aux informations en ligne</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Questionnaire : Votre rapport aux informations en ligne</h1>
+    <form id="quizForm">
+        <div class="question">
+            <p>1. Que faites-vous lorsque vous voyez une nouvelle surprenante sur les réseaux sociaux ?</p>
+            <p>A) Elle est fascinante, je veux que d'autres la voient aussi.</p>
+            <p>B) Je cherche à savoir qui en parle d'autre.</p>
+            <p>C) Je garde mes distances avant de la partager.</p>
+            <input type="text" name="q1" required>
+        </div>
+        <div class="question">
+            <p>2. Vous recevez un message vantant une offre exceptionnelle ou un gain inattendu. Quelle est votre réaction ?</p>
+            <p>A) Je suis curieux(se) de savoir de quoi il s'agit.</p>
+            <p>B) Ça me semble étrange, je ne m'en occupe pas.</p>
+            <p>C) Je demande à mon entourage ce qu'ils en pensent.</p>
+            <input type="text" name="q2" required>
+        </div>
+        <div class="question">
+            <p>3. Une information qui bouscule vos habitudes quotidiennes arrive dans votre fil d'actualité. Comment réagissez-vous ?</p>
+            <p>A) Ça a l'air sérieux, j'adapte mes comportements.</p>
+            <p>B) J'essaie d'en apprendre davantage avec des sources fiables.</p>
+            <p>C) Je préfère en discuter avec quelqu'un avant de décider.</p>
+            <input type="text" name="q3" required>
+        </div>
+        <div class="question">
+            <p>4. Une personne publique s'exprime sur un sujet controversé. Quelle est votre réflexion ?</p>
+            <p>A) C'est forcément important, je prends son avis en compte.</p>
+            <p>B) C'est intéressant, mais je vais regarder d'autres avis.</p>
+            <p>C) Je garde un œil critique malgré son statut.</p>
+            <input type="text" name="q4" required>
+        </div>
+        <div class="question">
+            <p>5. Une photo impressionnante devient virale. Que faites-vous ?</p>
+            <p>A) Elle est incroyable, je crois ce qu'elle montre.</p>
+            <p>B) Je me demande si elle peut avoir été modifiée.</p>
+            <p>C) Je vais chercher à comprendre son origine exacte.</p>
+            <input type="text" name="q5" required>
+        </div>
+        <div class="question">
+            <p>6. Vous lisez un titre captivant, mais l'article complet est difficile d'accès. Vous :</p>
+            <p>A) Vous basez sur le titre, cela suffit pour vous faire une idée.</p>
+            <p>B) Vous passez à autre chose, ça semble compliqué à lire.</p>
+            <p>C) Vous explorez des sources alternatives sur le même sujet.</p>
+            <input type="text" name="q6" required>
+        </div>
+        <div class="question">
+            <p>7. Une vidéo intrigante apparaît sur votre fil d'actualité. Comment réagissez-vous ?</p>
+            <p>A) Je la partage, elle mérite d'être vue.</p>
+            <p>B) J'essaie de savoir si elle est authentique.</p>
+            <p>C) Je recherche des informations complémentaires à son sujet.</p>
+            <input type="text" name="q7" required>
+        </div>
+        <div class="question">
+            <p>8. Vous découvrez un site web qui publie des informations inédites. Quelle est votre approche ?</p>
+            <p>A) Je fais confiance, ces contenus sont captivants.</p>
+            <p>B) Je vérifie si d'autres sources fiables mentionnent les mêmes faits.</p>
+            <p>C) J'évalue la crédibilité du site avant d'y croire.</p>
+            <input type="text" name="q8" required>
+        </div>
+        <div class="question">
+            <p>9. Un proche partage une information sans précédent avec vous. Que faites-vous ?</p>
+            <p>A) Je la partage à mon tour, cela semble important.</p>
+            <p>B) Je pose des questions pour mieux comprendre.</p>
+            <p>C) Je cherche des éléments qui confirment ou infirment cette information.</p>
+            <input type="text" name="q9" required>
+        </div>
+        <div class="question">
+            <p>10. Une histoire qui explique beaucoup de mystères attire votre attention. Quelle est votre réaction ?</p>
+            
+            <p>A) C'est fascinant, j'y adhère rapidement.</p>
+            <p>B) Je garde des doutes, même si elle semble cohérente.</p>
+            <p>C) J'investigue pour savoir si elle est fondée.</p>
+            <input type="text" name="q10" required>
+        </div>
+        <button type="submit">Soumettre</button>
+    </form>
+    <div id="result" class="result hidden"></div>
+
+    <script>
+        document.getElementById('quizForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            let score = 0;
+            let errors = [];
+            const points = {
+                q1: {'A': 3, 'B': 1, 'C': 0},
+                q2: {'A': 3, 'B': 0, 'C': 1},
+                q3: {'A': 3, 'B': 0, 'C': 1},
+                q4: {'A': 3, 'B': 1, 'C': 0},
+                q5: {'A': 3, 'B': 1, 'C': 0},
+                q6: {'A': 3, 'B': 1, 'C': 0},
+                q7: {'A': 3, 'B': 1, 'C': 0},
+                q8: {'A': 3, 'B': 0, 'C': 1},
+                q9: {'A': 3, 'B': 1, 'C': 0},
+                q10: {'A': 3, 'B': 1, 'C': 0},
+            };
+
+            for (let i = 1; i <= 10; i++) {
+                let answer = document.getElementsByName('q' + i)[0].value.toUpperCase();
+                if (!['A', 'B', 'C'].includes(answer)) {
+                    errors.push(`Question ${i}: Veuillez entrer A, B ou C.`);
+                } else {
+                    score += points['q' + i][answer];
+                }
+            }
+
+            let resultText = `Votre score est : ${score}<br><br>`;
+            if (errors.length > 0) {
+                resultText += 'Erreurs :<ul>';
+                errors.forEach(error => {
+                    resultText += `<li class="error">${error}</li>`;
+                });
+                resultText += '</ul>';
+            }
+
+            if (/[0-9]/.test(document.getElementsByName('q1')[0].value)) {
+                resultText += '<br>Il semble que vous ayez essayé de contourner le système en entrant un chiffre. Veuillez entrer A, B ou C.';
+            }
+
+            resultText += `<br><br>Interprétation des résultats :<br>
+            - Score élevé (20-30) : Vous êtes très crédules et avez tendance à croire facilement les informations sans les vérifier.<br>
+            - Score moyen (10-19) : Vous faites preuve d'un certain scepticisme, mais vous pourriez améliorer votre vérification des informations.<br>
+            - Score bas (0-9) : Vous êtes très prudent(e) et vérifiez systématiquement les informations avant de les croire.`;
+
+            document.getElementById('result').innerHTML = resultText;
+            document.getElementById('result').classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
